@@ -26,7 +26,7 @@ $$c_t = f_t \circ c_{t-1} + i_t \circ z_t$$
 $$h_t = o_t \circ c_t$$  
 
 ## Note
-1. In the original text, the calculation expression of QRNN does not include **bias** terms. Here, we have retained this function, but the ***use_bias*** parameter is set to ***False*** by default.
+1. In the original text, the calculation expression of QRNN does not include **bias** terms. Here, we have retained this function, but the '***use_bias***' parameter is set to ***False*** by default.
 2. In this code, we have implemented the **3 pooling modes** recommended in the original article. The selection of these 3 modes is controlled by the '***pool_mode***' parameter, and there are **3 options** to choose from: '***f***', '***fo***', and '***ifo***', with '***fo***' being the default.
 3. The implementation of QRNN here can be wrapped using the 'tf.keras.layers.Bidirectional' API. Please refer to the usage examples for details.
 
