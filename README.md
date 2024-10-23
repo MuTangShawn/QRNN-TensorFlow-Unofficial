@@ -7,10 +7,21 @@ The implementation of this model refers to the QRNN structure proposed in the or
 Bradbury, J., Merity, S., Xiong, C., & Socher, R. (2016). Quasi-recurrent neural networks. arXiv preprint arXiv:1611.01576. https://arxiv.org/abs/1611.01576  
   
 ## The calculation expression of QRNNCell
-$$f_t = \sigma(W_f \cdot x_t + V_f \circ c_{t-1} + b_f)$$  
-$$r_t = \sigma(W_r \cdot x_t + V_r \circ c_{t-1} + b_r)$$  
-$$c_t = f_t \circ c_{t-1} + (1 - f_t) \circ (W_c \cdot x_t)$$  
-$$h_t = r_t \circ c_t + (1 - r_t) \circ x_t$$  
+### For f-pooling
+$$Z = \tanh(W_Z * X + b_Z)$$  
+$$F = \sigma(W_F * X + b_F)$$  
+$$h_t = f_t \circ h_{t-1} + (1 - f_t) \circ z_t$$  
+### For fo-pooling
+$$Z = \tanh(W_Z * X + b_Z)$$  
+$$F = \sigma(W_F * X + b_F)$$  
+$$O = \sigma(W_O * X + b_O)$$  
+$$c_t = f_t \circ c_{t-1} + (1 - f_t) \circ z_t$$  
+$$h_t = o_t \circ c_t$$  
+### For ifo-pooling
+$$Z = \tanh(W_Z * X + b_Z)$$  
+$$F = \sigma(W_F * X + b_F)$$  
+$$O = \sigma(W_O * X + b_O)$$  
+$$I = \sigma(W_I * X + b_I)$$  
 
 ## Note
 1. The calculation expression in the original SRUv5 only includes recurrent activation, the Sigmoid function (***σ***). But in SRU v4-type, the last formula was expressed as $$h_t = r_t \circ g(c_t) + (1 - r_t) \circ x_t$$. We have retained the activation function here which defaults to '***tanh***', but we have added a new parameter for this layer called '***use activation***' which defaults to '***False***'.
